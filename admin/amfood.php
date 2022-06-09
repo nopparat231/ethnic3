@@ -12,31 +12,26 @@
 
         <div class="card-body">
 
-            <form action="?amcustom&add_db" method="post">
+            <form action="?amfood&add_db" method="post">
 
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">รหัสอาหาร</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="Custom_id" autocomplete="off" required>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="Food_id" autocomplete="off" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleFormControlInput5" class="form-label">รหัสชาติพันธุ์</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput5" name="Ethnic_id" autocomplete="off" required>
+                    <label for="exampleFormControlInput5" class="form-label">ชื่อ</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput5" name="Food_name" autocomplete="off" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleFormControlInput2" class="form-label"> ชื่ออาหารภาษาไทย</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput2" name="Custom_name" autocomplete="off" required>
+                    <label for="exampleFormControlInput2" class="form-label"> Ethnic_id</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput2" name="Ethnic_id" autocomplete="off" required>
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleFormControlInput4" class="form-label">ช่วงเวลา</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput4" name="Custom_date" autocomplete="off" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">ข้อมูลทั่วไป</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" name="Custom_detail" required></textarea>
+                    <label for="exampleFormControlInput4" class="form-label"> Foodtype_id</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput4" name="Foodtype_id" autocomplete="off" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -49,11 +44,11 @@
 
     <?php } elseif (isset($_GET['edit'])) {
 
-    if (isset($_GET['Custom_id'])) {
+    if (isset($_GET['Food_id'])) {
 
-        $Custom_id = $_GET['Custom_id'];
+        $Food_id = $_GET['Food_id'];
 
-        $sql1 = "SELECT * FROM custom WHERE Custom_id = '$Custom_id' ";
+        $sql1 = "SELECT * FROM food WHERE Food_id = '$Food_id' ";
         $q1 = mysqli_query($conn, $sql1);
         $row = mysqli_fetch_array($q1);
 
@@ -68,32 +63,26 @@
 
             <div class="card-body">
 
-                <form action="?amcustom&edit_db" method="post">
+                <form action="?amfood&edit_db" method="post">
 
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">รหัสอาหาร</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="Custom_id" value="<?php echo $row['Custom_id'] ?>" autocomplete="off" required>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="Food_id" value="<?php echo $row['Food_id'] ?>" autocomplete="off" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="exampleFormControlInput5" class="form-label">รหัสชาติพันธุ์</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput5" name="Ethnic_id" value="<?php echo $row['Ethnic_id'] ?>" autocomplete="off" required>
+                        <label for="exampleFormControlInput5" class="form-label">ชื่อ</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput5" name="Food_name" value="<?php echo $row['Food_name'] ?>" autocomplete="off" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="exampleFormControlInput2" class="form-label"> ชื่ออาหารภาษาไทย</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput2" name="Custom_name" value="<?php echo $row['Custom_name'] ?>" autocomplete="off" required>
+                        <label for="exampleFormControlInput2" class="form-label"> Ethnic_id</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput2" name="Ethnic_id" value="<?php echo $row['Ethnic_id'] ?>" autocomplete="off" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="exampleFormControlInput4" class="form-label">ช่วงเวลา</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput4" name="Custom_date" value="<?php echo $row['Custom_date'] ?>" autocomplete="off" required>
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">ข้อมูลทั่วไป</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" name="Custom_detail" required><?php echo $row['Custom_detail'] ?></textarea>
+                        <label for="exampleFormControlInput4" class="form-label"> Foodtype_id</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput4" name="Foodtype_id" value="<?php echo $row['Foodtype_id'] ?>" autocomplete="off" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -110,29 +99,28 @@
     //เพิ่ม db
 } elseif (isset($_GET['add_db'])) {
 
-    if (isset($_POST['Custom_id'])) {
+    if (isset($_POST['Food_id'])) {
 
-        $Custom_id = $_POST["Custom_id"];
-        $Custom_name = $_POST["Custom_name"];
-        $Custom_detail = $_POST["Custom_detail"];
-        $Custom_date = $_POST["Custom_date"];
+        $Food_id = $_POST["Food_id"];
+        $Food_name = $_POST["Food_name"];
         $Ethnic_id = $_POST["Ethnic_id"];
+        $Foodtype_id = $_POST["Foodtype_id"];
 
-        $strSQL = "INSERT INTO custom
-        values ('" . $Custom_id . "','" . $Custom_name . "','" . $Custom_detail . "',
-                '" . $Custom_date . "','" . $Ethnic_id . "')";
+        $strSQL = "INSERT INTO food
+        values ('" . $Food_id . "','" . $Food_name . "','" . $Ethnic_id . "',
+                '" . $Foodtype_id . "')";
 
         if (mysqli_query($conn, $strSQL)) {
 
             echo "<script>
             alert('บันทึกเรียบร้อย');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
               </script>";
         } else {
 
             echo "<script>
             alert('Error');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
               </script>";
         }
     }
@@ -140,26 +128,25 @@
     //แก้ไข db
 } elseif (isset($_GET['edit_db'])) {
 
-    if (isset($_POST['Custom_id'])) {
+    if (isset($_POST['Food_id'])) {
 
-        $strSQL = "update custom set Custom_id = '" . $_POST['Custom_id'] . "'
-        , Custom_name =  '" . $_POST['Custom_name'] . "'
-        , Custom_detail =  '" . $_POST['Custom_detail'] . "'
-        , Custom_date =  '" . $_POST['Custom_date'] . "'
+        $strSQL = "update food set Food_id = '" . $_POST['Food_id'] . "'
+        , Food_name =  '" . $_POST['Food_name'] . "'
         , Ethnic_id =  '" . $_POST['Ethnic_id'] . "'
-        where Custom_id IN ('" . $_POST['Custom_id'] . "')";
+        , Foodtype_id =  '" . $_POST['Foodtype_id'] . "'
+        where Food_id IN ('" . $_POST['Food_id'] . "')";
 
         if (mysqli_query($conn, $strSQL)) {
 
             echo "<script>
             alert('บันทึกเรียบร้อย');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
               </script>";
         } else {
 
             echo "<script>
             alert('Error');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
               </script>";
         }
     }
@@ -167,23 +154,23 @@
     //ลบ
 } elseif (isset($_GET['del'])) {
 
-    if (isset($_GET['Custom_id'])) {
+    if (isset($_GET['Food_id'])) {
 
-        $Custom_id = $_GET['Custom_id'];
+        $Food_id = $_GET['Food_id'];
 
-        $sql = "DELETE FROM custom WHERE Custom_id ='$Custom_id'";
+        $sql = "DELETE FROM food WHERE Food_id ='$Food_id'";
 
         if (mysqli_query($conn, $sql) == TRUE) {
 
             echo "<script>
             alert('ลบสำเร็จ');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
             </script>";
         } else {
 
             echo "<script>
             alert('Error');
-            window.location.href = 'index.php?amcustom';
+            window.location.href = 'index.php?amfood';
             </script>";
         }
     }
@@ -194,7 +181,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
 
-            <a href="?amcustom&add" class="btn btn-success btn-circle float-end">
+            <a href="?amfood&add" class="btn btn-success btn-circle float-end">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </a>
 
@@ -204,11 +191,10 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Custom_id</th>
+                            <th>Food_id</th>
                             <th>ชื่ออาหาร</th>
-                            <th>รายละเอียด</th>
-                            <th>ช่วงเวลา</th>
                             <th>Ethnic_id</th>
+                            <th>Foodtype_id</th>
                             <th>แก้ไข</th>
                             <th>ลบ</th>
                         </tr>
@@ -217,17 +203,17 @@
                     <tbody>
 
                         <?php
-                        $sql1 = "SELECT * FROM custom";
+                        $sql1 = "SELECT * FROM food";
                         $q1 = mysqli_query($conn, $sql1);
                         while ($row = mysqli_fetch_array($q1)) {
+
                             echo "<tr>";
-                            echo "<td>" . $row['Custom_id'] . "</td>";
-                            echo "<td>" . $row['Custom_name'] . "</td>";
-                            echo "<td>" . $row['Custom_detail'] . "</td>";
-                            echo "<td>" . $row['Custom_date'] . "</td>";
+                            echo "<td>" . $row['Food_id'] . "</td>";
+                            echo "<td>" . $row['Food_name'] . "</td>";
                             echo "<td>" . $row['Ethnic_id'] . "</td>";
-                            echo '<td style="text-align: center"> <a href="?amcustom&edit&Custom_id=' . $row['Custom_id'] . '" class="btn btn-warning btn-sm float-end"><i class="fas fa-pencil-alt"></i></a> </td>';
-                            echo "<td style='text-align: center'> <a href='?amcustom&del&Custom_id=" . $row['Custom_id'] . "' onclick=\"return confirm('ต้องการลบรายการนี้ใช่หรือไม่?')\" class='btn btn-danger btn-sm float-end'><i class='fas fa-trash'></i></a> </td>";
+                            echo "<td>" . $row['Foodtype_id'] . "</td>";
+                            echo '<td style="text-align: center"> <a href="?amfood&edit&Food_id=' . $row['Food_id'] . '" class="btn btn-warning btn-sm float-end"><i class="fas fa-pencil-alt"></i></a> </td>';
+                            echo "<td style='text-align: center'> <a href='?amfood&del&Food_id=" . $row['Food_id'] . "' onclick=\"return confirm('ต้องการลบรายการนี้ใช่หรือไม่?')\" class='btn btn-danger btn-sm float-end'><i class='fas fa-trash'></i></a> </td>";
                             echo "</tr>";
                         }
 

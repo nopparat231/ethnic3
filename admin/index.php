@@ -53,13 +53,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-home" aria-hidden="true"></i>
-                    <span>Home</span></a>
-            </li> -->
-
             <li class="nav-item">
                 <a class="nav-link" href="index.php?ethnic">
                     <i class="fas fa-list-ul" aria-hidden="true"></i>
