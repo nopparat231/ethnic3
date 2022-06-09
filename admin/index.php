@@ -140,6 +140,8 @@
                         include('amcustom.php');
                     } elseif (isset($_GET['amfood'])) {
                         include('amfood.php');
+                    } elseif (isset($_GET['amclothes'])) {
+                        include('amclothe.php');
                     } else {
                         echo "<h1 class='h3 mb-4 text-gray-800'>ยินดีต้อนรับ Admin</h1>";
                     }
