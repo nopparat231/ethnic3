@@ -94,7 +94,7 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="../logout.php">
                     <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                     <span> ออกจากระบบ </span></a>
             </li>

@@ -28,7 +28,7 @@ if (isset($_POST['Submit'])) {
       }
       if ($_SESSION["Status"] == "Admin") {
 
-        Header("Location: /admin");
+        Header("Location: ./admin");
       }
     } else {
       echo "<script>";
