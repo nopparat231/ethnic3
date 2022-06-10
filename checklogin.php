@@ -25,6 +25,12 @@ if (isset($_POST['Submit'])) {
       if ($_SESSION["Status"] == "User") {
 
         Header("Location: index.php");
+
+        // echo "<script>";
+
+        // echo "window.history.back(-1) ";
+        // echo "</script>";
+
       }
       if ($_SESSION["Status"] == "Admin") {
 
