@@ -78,7 +78,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="index.php?amallplace">
+                <a class="nav-link" href="index.php?amallplace&search=tl01">
                     <i class="fas fa-map-marker" aria-hidden="true"></i>
                     <span>สถานที่</span></a>
             </li>

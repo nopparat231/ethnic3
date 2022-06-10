@@ -140,7 +140,7 @@
         if (mysqli_query($conn, $strSQL)) {
   
             echo "<script>
-            alert('บันทำกเรียบร้อย');
+            alert('บันทึกเรียบร้อย');
             window.location.href = 'index.php?ethnic';
               </script>";
         } else {
@@ -177,7 +177,7 @@
         if (mysqli_query($conn, $strSQL)) {
 
             echo "<script>
-            alert('บันทำกเรียบร้อย');
+            alert('บันทึกเรียบร้อย');
             window.location.href = 'index.php?ethnic';
               </script>";
         } else {
