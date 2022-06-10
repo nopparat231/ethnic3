@@ -176,7 +176,7 @@
             <div class="w3-display-container w3-content w3-center" style="max-width:1500px">
                 <img class="w3-image" src="bg.jpg">
                 <?php
-                
+
                 if (!isset($_SESSION["Email"])) {
                 ?>
                     <ul>
@@ -216,8 +216,18 @@
             </div>
 
 
-            
-            <h1>Ethnic_nameth : <?php echo (isset($_GET['Ethnic_nameth'])) ? $_GET['Ethnic_nameth'] : "ไม่พบ" ?></h1>
+            <div style="text-align: center;">
+
+                <h1>Region : <?php echo $_GET['Region_name'] ?></h1><br>
+                <h1>Province : <?php echo $_GET['Province_name'] ?></h1><br>
+                <h1>Typelocation : <?php echo $_GET['Typelocation_name'] ?></h1><br>
+                <h1>Ethnic : <?php echo $_GET['Ethnic_nameth'] ?></h1><br>
+                <h1>start : <?php echo $_GET['start'] ?></h1><br>
+                <h1>end : <?php echo $_GET['end'] ?></h1><br>
+                <h1>costmin : <?php echo $_GET['costmin'] ?></h1><br>
+                <h1>costmax : <?php echo $_GET['costmax'] ?></h1><br>
+
+            </div>
 
         </div>
 

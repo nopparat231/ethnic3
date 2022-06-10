@@ -20,31 +20,36 @@ if ($requestMethod == 'GET') {
 
     $arr = array();
 
+    //จังหวัด
     if (isset($_GET['Region_id'])) {
 
         $Region_id = $_GET['Region_id'];
 
-        $res = $conn->query("SELECT * from Province WHERE Region_id = '$Region_id' ");
+        $res = $conn->query("SELECT * from Province INNER JOIN place INNER JOIN ethnicdata WHERE ethnicdata.Ethnic_id = place.Ethnic_id AND Province.Province_id = place.Province_id AND Region_id = '$Region_id' ");
 
         while ($row = $res->fetch_assoc()) {
 
             $arr[] = $row;
         }
+
+        //สถานที่
     } elseif (isset($_GET['Province_id'])) {
 
-        $res = $_GET['Province_id'];
+        $Province_id = $_GET['Province_id'];
 
-        $res = $conn->query("SELECT Ethnic_nameth from ethnicdata WHERE '$Province_id' ");
+        $res = $conn->query("SELECT * from place INNER JOIN ethnicdata WHERE ethnicdata.Ethnic_id = place.Ethnic_id AND Province_id = '$Province_id' ");
 
         while ($row = $res->fetch_assoc()) {
 
             $arr[] = $row;
         }
+
+        //ชาติพันธุ์
     } elseif (isset($_GET['Ethnic_id'])) {
 
         $Ethnic_id = $_GET['Ethnic_id'];
 
-        $res = $conn->query("SELECT Typelocation_name from typelocation WHERE '$Ethnic_id' ");
+        $res = $conn->query("SELECT * from ethnicdata WHERE Ethnic_id = '$Ethnic_id' ");
 
         while ($row = $res->fetch_assoc()) {
 

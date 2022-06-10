@@ -228,13 +228,11 @@
           ?>
           <h1>วางแผนการท่องเที่ยวแบบมีเงื่อนไข <p>
 
-
-
             <div class="us-form">
               <div class='unwrap'>
                 <h2><br> ภาค :
 
-                  <?php echo "<select name='Region_name' id='Region_name'  onchange='Getregion(this.value)' >";
+                  <?php echo "<select name='Region_name' id='Region_name'  onclick='Getregion(this.value)' >";
                   echo '<option>  เลือกภาค  </option>';
                   while ($row = $region->fetch_assoc()) {
                     $name = $row['Region_name'];
@@ -250,7 +248,7 @@
               <div class='unwrap'>
                 <h2><br> จังหวัด :
 
-                  <select name='Province_name' id='Province_name'>
+                  <select name='Province_name' id='Province_name' onclick='GetProvince(this.value)'>
                     <option> เลือกจังหวัด </option>
                   </select>
 
@@ -264,7 +262,7 @@
               <div class='unwrap'>
                 <h2><br> สถานที่ :
 
-                  <select name='Typelocation_name' id='Typelocation_name'>
+                  <select name='Typelocation_name' id='Typelocation_name' onclick='GetTypelocation(this.value)'>
                     <option> เลือกสถานที่ </option>
                   </select>
 
@@ -369,7 +367,6 @@
                     <option value="24">24.00</option>
                   </select>
 
-
                   &nbsp;น.
 
               </div>
@@ -444,6 +441,8 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
+
+      // จังหวัด
       function Getregion(id) {
 
         var options = "";
@@ -455,7 +454,7 @@
             console.log(res);
 
             for (var i = 0; i < res.length; i++) {
-              options += '<option>' + res[i].Province_name + '</option>';
+              options += '<option value=' + res[i].Province_id + '>' + res[i].Province_name + '</option>';
             }
 
             document.getElementById('Province_name').innerHTML = options;
@@ -467,8 +466,60 @@
 
         })
 
+      }
+
+      //สถานที่
+      function GetProvince(id) {
+
+        var options = "";
+        $.ajax({
+          url: 'plan_api.php?Province_id=' + id,
+          type: 'GET',
+          success: function(res) {
+
+            console.log(res);
+
+            for (var i = 0; i < res.length; i++) {
+              options += '<option value=' + res[i].Ethnic_id + '>' + res[i].Location_name + '</option>';
+            }
+
+            document.getElementById('Typelocation_name').innerHTML = options;
+
+          },
+          error: function(xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText + " " + xhr.responseText)
+          }
+
+        })
 
       }
+
+      //ชาติพันธ์
+      function GetTypelocation(id) {
+
+        var options = "";
+        $.ajax({
+          url: 'plan_api.php?Ethnic_id=' + id,
+          type: 'GET',
+          success: function(res) {
+
+            console.log(res);
+
+            for (var i = 0; i < res.length; i++) {
+              options += '<option value=' + res[i].Ethnic_id + '>' + res[i].Ethnic_nameth + '</option>';
+            }
+
+            document.getElementById('Ethnic_nameth').innerHTML = options;
+
+          },
+          error: function(xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText + " " + xhr.responseText)
+          }
+
+        })
+
+      }
+
 
 
 
