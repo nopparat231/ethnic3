@@ -37,7 +37,7 @@ if ($requestMethod == 'GET') {
 
         $Province_id = $_GET['Province_id'];
 
-        $res = $conn->query("SELECT * from place INNER JOIN ethnicdata WHERE ethnicdata.Ethnic_id = place.Ethnic_id AND Province_id = '$Province_id' ");
+        $res = $conn->query("SELECT * from foodplace INNER JOIN clothesplace WHERE clothesplace.Province_id = foodplace.Province_id AND foodplace.Province_id = '$Province_id' ");
 
         while ($row = $res->fetch_assoc()) {
 

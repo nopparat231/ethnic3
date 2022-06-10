@@ -220,8 +220,13 @@
 
                 <h1>Region : <?php echo $_GET['Region_name'] ?></h1><br>
                 <h1>Province : <?php echo $_GET['Province_name'] ?></h1><br>
-                <h1>Typelocation : <?php echo $_GET['Typelocation_name'] ?></h1><br>
-                <h1>Ethnic : <?php echo $_GET['Ethnic_nameth'] ?></h1><br>
+                <!-- <h1>Typelocation : <?php //echo $_GET['Typelocation_name'] 
+                                        ?></h1><br>
+                <h1>Ethnic : <?php //echo $_GET['Ethnic_nameth'] 
+                                ?></h1><br> -->
+
+                <div id="Typelocation_name"></div>
+
                 <h1>start : <?php echo $_GET['start'] ?></h1><br>
                 <h1>end : <?php echo $_GET['end'] ?></h1><br>
                 <h1>costmin : <?php echo $_GET['costmin'] ?></h1><br>
@@ -230,6 +235,69 @@
             </div>
 
         </div>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script>
+            //สถานที่
+
+            var Province_id = "<?php echo $_GET['Province_name'] ?>";
+            GetProvince(Province_id);
+
+            function GetProvince(id) {
+
+                var options = "";
+                $.ajax({
+                    url: 'plan_api.php?Province_id=' + id,
+                    type: 'GET',
+                    success: function(res) {
+
+                        console.log(res);
+                        
+                        for (var i = 0; i < res.length; i++) {
+                            options += '<span>ร้านอาหาร : '+ res[i].Foodplace_name + '</span><br>';
+                            options += '<span>ร้านเสื้อผ้า : '+ res[i].Clothesplace_name + '</span><br>';
+                            //options += '<span>'+ res[i].Typelocation_name + '</span><br>';
+                        }
+
+                        document.getElementById('Typelocation_name').innerHTML = options;
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText + " " + xhr.responseText)
+                    }
+
+                })
+
+            }
+
+            //ชาติพันธ์
+            function GetTypelocation(id) {
+
+                var options = "";
+                $.ajax({
+                    url: 'plan_api.php?Ethnic_id=' + id,
+                    type: 'GET',
+                    success: function(res) {
+
+                        console.log(res);
+
+                        for (var i = 0; i < res.length; i++) {
+                            options += '<option value=' + res[i].Ethnic_id + '>' + res[i].Ethnic_nameth + '</option>';
+                        }
+
+                        document.getElementById('Ethnic_nameth').innerHTML = options;
+
+                    },
+                    error: function(xhr, status, error) {
+                        console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText + " " + xhr.responseText)
+                    }
+
+                })
+
+            }
+        </script>
 
     </body>
 

@@ -247,8 +247,8 @@
             <div class="us-form">
               <div class='unwrap'>
                 <h2><br> จังหวัด :
-
-                  <select name='Province_name' id='Province_name' onclick='GetProvince(this.value)'>
+                <!-- <select name='Province_name' id='Province_name' onclick='GetProvince(this.value)'> -->
+                  <select name='Province_name' id='Province_name'>
                     <option> เลือกจังหวัด </option>
                   </select>
 
@@ -258,7 +258,7 @@
             </div>
 
 
-            <div class="us-form">
+            <!-- <div class="us-form">
               <div class='unwrap'>
                 <h2><br> สถานที่ :
 
@@ -269,9 +269,9 @@
                   <br>
 
               </div>
-            </div>
+            </div> -->
 
-            <div class="us-form">
+            <!-- <div class="us-form">
               <div class='unwrap'>
 
                 <h2><br> ชาติพันธุ์ :
@@ -284,7 +284,7 @@
 
                 </h2>
               </div>
-            </div>
+            </div> -->
 
             <div class="us-form">
               <div class='unwrap'>
@@ -480,7 +480,7 @@
             console.log(res);
 
             for (var i = 0; i < res.length; i++) {
-              options += '<option value=' + res[i].Ethnic_id + '>' + res[i].Location_name + '</option>';
+              options += '<option value=' + res[i].Ethnic_id + '>' + res[i].Typelocation_name + '</option>';
             }
 
             document.getElementById('Typelocation_name').innerHTML = options;
