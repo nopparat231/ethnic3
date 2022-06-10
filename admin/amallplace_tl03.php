@@ -83,11 +83,11 @@
 
             <div class="card-body">
 
-                <form action="?amallplace&search=tl03&edit_db" method="get">
+                <form action="?amallplace&search=tl03&edit_db" method="post">
 
                     <div class="mb-3">
                         <label for="Ethnicplace_id" class="form-label">รหัสแหล่งที่เหลืออยู่</label>
-                        <input type="text" class="form-control" id="Ethnicplace_id" name="Ethnicplace_id" value="<?php echo $row['Ethnicplace_id'] ?>" autocomplete="off" required>
+                        <input type="text" class="form-control" id="Ethnicplace_id" name="Ethnicplace_id" value="<?php echo $row['Ethnicplace_id'] ?>" autocomplete="off" required readonly>
                     </div>
 
                     <div class="mb-3">

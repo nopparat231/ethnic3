@@ -113,7 +113,7 @@
 
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">รหัสร้านอาหาร</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="Foodplace_id" value="<?php echo $row['Foodplace_id'] ?>" autocomplete="off" required>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="Foodplace_id" value="<?php echo $row['Foodplace_id'] ?>" autocomplete="off" required readonly>
                     </div>
 
                     <div class="mb-3">

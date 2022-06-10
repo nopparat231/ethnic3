@@ -82,7 +82,7 @@
 
                     <div class="mb-3">
                         <label for="Customplace_id" class="form-label">รหัสวัฒนธรรมและประเพณี</label>
-                        <input type="text" class="form-control" id="Customplace_id" name="Customplace_id" value="<?php echo $row['Customplace_id'] ?>" autocomplete="off" required>
+                        <input type="text" class="form-control" id="Customplace_id" name="Customplace_id" value="<?php echo $row['Customplace_id'] ?>" autocomplete="off" required readonly>
                     </div>
 
                     <div class="mb-3">
