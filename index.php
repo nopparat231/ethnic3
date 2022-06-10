@@ -287,11 +287,28 @@ echo "</select>";
     if (isset($_GET['search'])) {
       $keyword = ($_GET['search']);
 
-      if($keyword != ""){
-      echo "<h1><b> ผลการค้นหา : " . $keyword . " </b></h1>";
+      if ($keyword != "") {
+        echo "<h1><b> ผลการค้นหา : " . $keyword . " </b></h1>";
       }
-      
-      $sql0 = "SELECT distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth";
+
+
+      if (isset($_GET['page'])) {
+        $pageno = mysqli_real_escape_string($dbConn, $_GET['page']);
+      } else {
+        $pageno = 1;
+      }
+      $no_of_records_per_page = 12;
+      $offset = ($pageno - 1) * $no_of_records_per_page;
+
+      $total_pages_sql = "SELECT COUNT(distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id) FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth";
+      $resultc = mysqli_query($conn, $total_pages_sql);
+      $total_rows = mysqli_fetch_array($resultc)[0];
+      $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+      $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
+      $q = mysqli_query($conn, $sql);
+
+      $sql0 = "SELECT distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth LIMIT $offset, $no_of_records_per_page";
       $q0 = mysqli_query($conn, $sql0);
       $rowcount = mysqli_num_rows($q0);
       $c = 1;
@@ -315,9 +332,24 @@ echo "</select>";
               </div>';
       }
     } else {
-      $sql = "SELECT * FROM ethnicdata";
+
+
+      if (isset($_GET['page'])) {
+        $pageno = mysqli_real_escape_string($conn, $_GET['page']);
+      } else {
+        $pageno = 1;
+      }
+      $no_of_records_per_page = 12;
+      $offset = ($pageno - 1) * $no_of_records_per_page;
+
+      $total_pages_sql = "SELECT COUNT(*) FROM ethnicdata";
+      $resultc = mysqli_query($conn, $total_pages_sql);
+      $total_rows = mysqli_fetch_array($resultc)[0];
+      $total_pages = ceil($total_rows / $no_of_records_per_page);
+
+      $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
       $q = mysqli_query($conn, $sql);
-      $c = 1;
+
       while ($f = mysqli_fetch_assoc($q)) {
         $img = $f['img'];
 
@@ -331,31 +363,44 @@ echo "</select>";
           <a href="ethnicdetail.php?nameimg=' . $img . '"></a>
           </figure>
           </div>';
-        $c++;
-        if ($c >= 10) {
-          break;
-        }
       }
     }
-    ?>
 
+    $pa = 1;
+    if (isset($_GET['page'])) {
+      $pa = $_GET['page'];
+    }
+
+    ?>
 
     <!-- Pagination -->
     <div class="w3-center w3-padding-32">
       <div class="w3-bar" style="margin-left: 990px">
-        <a href="index.php" class="w3-bar-item w3-button w3-hover-black">«</a>
-        <a href="index.php" class="w3-bar-item w3-black w3-button">1</a>
-        <a href="index2.php" class="w3-bar-item w3-button w3-hover-black">2</a>
-        <a href="index3.php" class="w3-bar-item w3-button w3-hover-black">3</a>
-        <a href="index4.php" class="w3-bar-item w3-button w3-hover-black">4</a>
-        <a href="index5.php" class="w3-bar-item w3-button w3-hover-black">5</a>
-        <a href="index6.php" class="w3-bar-item w3-button w3-hover-black">6</a>
-        <a href="index7.php" class="w3-bar-item w3-button w3-hover-black">7</a>
-        <a href="index8.php" class="w3-bar-item w3-button w3-hover-black">8</a>
-        <a href="index9.php" class="w3-bar-item w3-button w3-hover-black">9</a>
-        <a href="index9.php" class="w3-bar-item w3-button w3-hover-black">»</a>
+        <a href="index.php?page=<?php echo $pa - 1 ?>" class="w3-bar-item w3-button ">«</a>
+
+        <?php
+
+        $hov = "";
+        for ($p = 1; $p <= $total_pages; $p++) {
+
+          if ($pa == $p) {
+            $hov = "w3-bar-item w3-black w3-button";
+          } else {
+            $hov = "w3-bar-item w3-button w3-hover-black";
+          }
+
+        ?>
+
+          <a href="index.php?page=<?php echo $p ?>" class="<?php echo $hov ?>"><?php echo $p ?></a>
+
+        <?php
+        }
+        ?>
+
+        <a href="index.php?page=<?php echo $pa + 1 ?>" class="w3-bar-item w3-button ">»</a>
       </div>
     </div>
+
 
     <!-- Footer -->
 
