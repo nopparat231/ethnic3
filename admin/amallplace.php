@@ -11,6 +11,7 @@
             <div class="input-group">
 
                 <select class="form-select" aria-label="Default select example" style="width: 15rem;" name="search">
+                    <option value="" selected></option>
                     <option value="tl01">ร้านอาหาร</option>
                     <option value="tl02">วัฒนธรรมและประเพณี</option>
                     <option value="tl03">แหล่งที่เหลืออยู่</option>
@@ -58,7 +59,7 @@ if ($_GET['search'] == "tl01") {
             เพิ่ม ลบ แก้ไข
         </div>
         <div class="card-body">
-            <h2>Test : <?php echo isset($_GET['search']) ? $_GET['search'] : "" ?></h2>
+            <h2>กรุณาเลือก ประเภทสถานที่</h2>
         </div>
     </div>
 
