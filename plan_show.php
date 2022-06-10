@@ -215,35 +215,94 @@
 
             </div>
 
+            <?php
 
-            <div style="text-align: center;">
+            $Region_id = $_GET['Region_name'];
+            $Province_id = $_GET['Province_name'];
 
-                <h1>Region : <?php echo $_GET['Region_name'] ?></h1><br>
-                <h1>Province : <?php echo $_GET['Province_name'] ?></h1><br>
-                <!-- <h1>Typelocation : <?php //echo $_GET['Typelocation_name'] 
-                                        ?></h1><br>
-                <h1>Ethnic : <?php //echo $_GET['Ethnic_nameth'] 
-                                ?></h1><br> -->
+            ?>
+
+            <div style="margin-left: 15rem;">
+
+                <?php
+                $strSQL4 = "SELECT * from region WHERE Region_id = '$Region_id' ";
+                $result4 = mysqli_query($conn, $strSQL4);
+                $row4 = $result4->fetch_assoc();
+
+                echo "<h2>ภาค : " . $row4['Region_name'] . "</h2>"
+
+                ?>
+
+                <?php
+                $strSQL5 = "SELECT * from province WHERE Province_id = '$Province_id' ";
+                $result5 = mysqli_query($conn, $strSQL5);
+                $row5 = $result5->fetch_assoc();
+
+                echo "<h2>จังหวัด : " . $row5['Province_name'] . "</h2>"
+
+                ?>
+
+
+                <h2>ร้านอาหาร ทั้งหมมด</h2>
+
+                <?php
+
+                $strSQL = "SELECT * from foodplace WHERE Province_id = '$Province_id' ";
+                $result = mysqli_query($conn, $strSQL);
+
+                if (mysqli_num_rows($result) > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+                        echo "- " . $row['Foodplace_name'] . "<br>";
+                    }
+                } else {
+                    echo " ไม่มี <br>";
+                }
+
+
+                ?>
+
+                <h2>ร้านเสื้อผ้า ทั้งหมมด</h2>
+
+                <?php
+
+                $strSQL2 = "SELECT * from clothesplace WHERE Province_id = '$Province_id' ";
+                $result2 = mysqli_query($conn, $strSQL2);
+
+                if (mysqli_num_rows($result2) > 0) {
+                    while ($row2 = $result2->fetch_assoc()) {
+                        echo "- " . $row2['Clothesplace_name'] . "<br>";
+                    }
+                } else {
+                    echo " ไม่มี <br>";
+                }
+
+
+                ?>
+
 
                 <div id="Typelocation_name"></div>
 
-                <h1>start : <?php echo $_GET['start'] ?></h1><br>
-                <h1>end : <?php echo $_GET['end'] ?></h1><br>
-                <h1>costmin : <?php echo $_GET['costmin'] ?></h1><br>
-                <h1>costmax : <?php echo $_GET['costmax'] ?></h1><br>
+                <h2>ช่วงเวลา : <?php echo $_GET['start'] ?> ถึง : <?php echo $_GET['end'] ?></h2>
 
+                <h2>งบประมาณ : <?php echo $_GET['costmin'] ?> ถึง : <?php echo $_GET['costmax'] ?></h2>
             </div>
 
         </div>
 
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script>
             //สถานที่
 
             var Province_id = "<?php echo $_GET['Province_name'] ?>";
-            GetProvince(Province_id);
+            //GetProvince(Province_id);
 
             function GetProvince(id) {
 
@@ -254,10 +313,10 @@
                     success: function(res) {
 
                         console.log(res);
-                        
+
                         for (var i = 0; i < res.length; i++) {
-                            options += '<span>ร้านอาหาร : '+ res[i].Foodplace_name + '</span><br>';
-                            options += '<span>ร้านเสื้อผ้า : '+ res[i].Clothesplace_name + '</span><br>';
+                            options += '<span>ร้านอาหาร : ' + res[i].Foodplace_name + '</span><br>';
+                            options += '<span>ร้านเสื้อผ้า : ' + res[i].Clothesplace_name + '</span><br>';
                             //options += '<span>'+ res[i].Typelocation_name + '</span><br>';
                         }
 
