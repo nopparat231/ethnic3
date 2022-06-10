@@ -286,16 +286,29 @@
                 <h2>ช่วงเวลา : <?php echo $_GET['start'] ?> ถึง : <?php echo $_GET['end'] ?></h2>
 
                 <h2>งบประมาณ : <?php echo $_GET['costmin'] ?> ถึง : <?php echo $_GET['costmax'] ?></h2>
+
+
+
+                <br>
+                <br>
+                <br>
+
+
+                <button class="button button1" onclick="goBack()">ย้อนกลับ</button>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+
+                <br>
+                <br>
+                <br>
+
             </div>
 
         </div>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
 
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
         <script>
