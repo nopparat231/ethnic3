@@ -221,10 +221,9 @@
 
 
           <?php
-          $ethnic = $conn->query("SELECT Ethnic_nameth from ethnicdata");
-          $region = $conn->query("SELECT Region_name from region");
-          $type = $conn->query("SELECT Typelocation_name from typelocation");
-          $province = $conn->query("SELECT Province_name from Province");
+
+          $region = $conn->query("SELECT * from region");
+
 
           ?>
           <h1>วางแผนการท่องเที่ยวแบบมีเงื่อนไข <p>
@@ -235,11 +234,12 @@
               <div class='unwrap'>
                 <h2><br> ภาค :
 
-                  <?php echo "<select name='Region_name' ethnic_id= 'list'>";
+                  <?php echo "<select name='Region_name' id='Region_name'  onchange='Getregion(this.value)' >";
                   echo '<option>  เลือกภาค  </option>';
                   while ($row = $region->fetch_assoc()) {
                     $name = $row['Region_name'];
-                    echo '<option value="' . $name . '">' . $name . '</option>';
+                    $Region_id = $row['Region_id'];
+                    echo '<option value="' . $Region_id . '">' . $name . '</option>';
                   }
                   echo "</select>";
                   ?>
@@ -250,14 +250,12 @@
               <div class='unwrap'>
                 <h2><br> จังหวัด :
 
-                  <?php echo "<select name='Province_name' Province_id= 'list'>";
-                  echo '<option>  เลือกจังหวัด  </option>';
-                  while ($row = $province->fetch_assoc()) {
-                    $name = $row['Province_name'];
-                    echo '<option value="' . $name . '">' . $name . '</option>';
-                  }
-                  echo "</select><br>";
-                  ?>
+                  <select name='Province_name' id='Province_name'>
+                    <option> เลือกจังหวัด </option>
+                  </select>
+
+
+                  <br>
               </div>
             </div>
 
@@ -266,14 +264,12 @@
               <div class='unwrap'>
                 <h2><br> สถานที่ :
 
-                  <?php echo "<select name='Typelocation_name' ethnic_id= 'list'>";
-                  echo '<option>  เลือกสถานที่  </option>';
-                  while ($row = $type->fetch_assoc()) {
-                    $name = $row['Typelocation_name'];
-                    echo '<option value="' . $name . '">' . $name . '</option>';
-                  }
-                  echo "</select><br>";
-                  ?>
+                  <select name='Typelocation_name' id='Typelocation_name'>
+                    <option> เลือกสถานที่ </option>
+                  </select>
+
+                  <br>
+
               </div>
             </div>
 
@@ -281,14 +277,13 @@
               <div class='unwrap'>
 
                 <h2><br> ชาติพันธุ์ :
-                  <?php echo "<select name='Ethnic_nameth' ethnic_id= 'list' >";
-                  echo '<option>  เลือกชาติพันธุ์  </option>';
-                  while ($row = $ethnic->fetch_assoc()) {
-                    $name = $row['Ethnic_nameth'];
-                    echo '<option value="' . $name . '">' . $name . '</option>';
-                  }
-                  echo "</select><br>";
-                  ?>
+
+                  <select name='Ethnic_nameth' id='Ethnic_nameth'>
+                    <option> เลือกชาติพันธุ์ </option>
+                  </select>
+
+                  <br>
+
                 </h2>
               </div>
             </div>
@@ -297,7 +292,7 @@
               <div class='unwrap'>
 
                 <h2><br>ช่วงเวลา :
-                  <select name='start'>
+                  <select name='start' id="start">
                     <option> เลือกเวลาเริ่มต้น </option>
                     <option value="8">08.00</option>
                     <option value="8.3">08.30</option>
@@ -337,7 +332,7 @@
                   &nbsp;ถึง&nbsp;
 
 
-                  <select name='end'>
+                  <select name='end' id="end">
                     <option> เลือกเวลาสิ้นสุด </option>
                     <option value="8">08.00</option>
                     <option value="8.3">08.30</option>
@@ -384,7 +379,7 @@
               <div class='unwrap'>
                 <h2><br> งบประมาณ :
 
-                  <select name='costmin'>
+                  <select name='costmin' id="costmin">
                     <option> เลือกงบประมาณ </option>
                     <option value="0">0&nbsp;(ฟรี)</option>
                     <option value="100">100</option>
@@ -402,7 +397,7 @@
 
 
 
-                  &nbsp;ถึง&nbsp;<select name='costmax'>
+                  &nbsp;ถึง&nbsp;<select name='costmax' id="costmax">
                     <option> เลือกงบประมาณ </option>
                     <option value="0">0&nbsp;(ฟรี)</option>
                     <option value="100">100</option>
@@ -447,8 +442,39 @@
 
         <!-- End page content -->
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
+      function Getregion(id) {
+
+        var options = "";
+        $.ajax({
+          url: 'plan_api.php?Region_id=' + id,
+          type: 'GET',
+          success: function(res) {
+
+            console.log(res);
+
+            for (var i = 0; i < res.length; i++) {
+              options += '<option>' + res[i].Province_name + '</option>';
+            }
+
+            document.getElementById('Province_name').innerHTML = options;
+
+          },
+          error: function(xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText + " " + xhr.responseText)
+          }
+
+        })
+
+
+      }
+
+
+
+
+
+
       // Script to open and close sidebar
       function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
