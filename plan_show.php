@@ -156,10 +156,27 @@
             font-size: 25px;
             /*margin-left: 50px;*/
         }
+
+
+        .card {
+            background: rgb(75, 160, 107);
+            color: #FFE4B5;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+            border-radius: 12px;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
     </style>
 
 <body>
-    </style>
 
     </head>
 
@@ -222,79 +239,147 @@
 
             ?>
 
-            <div style="margin-left: 15rem;">
+            <div style="margin-left: 20rem;">
+
+                <br>
+                <br>
+
+                <h1>ผลการค้นหา</h1>
 
                 <?php
                 $strSQL4 = "SELECT * from region WHERE Region_id = '$Region_id' ";
                 $result4 = mysqli_query($conn, $strSQL4);
                 $row4 = $result4->fetch_assoc();
-
-                echo "<h2>ภาค : " . $row4['Region_name'] . "</h2>"
-
                 ?>
+
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ภาค</p>
+                        <h2 style="text-align: center;"><?php echo $row4['Region_name'] ?></h2>
+                    </div>
+                </div>
+                <br>
 
                 <?php
                 $strSQL5 = "SELECT * from province WHERE Province_id = '$Province_id' ";
                 $result5 = mysqli_query($conn, $strSQL5);
                 $row5 = $result5->fetch_assoc();
 
-                echo "<h2>จังหวัด : " . $row5['Province_name'] . "</h2>"
-
                 ?>
 
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">จังหวัด</p>
+                        <h2 style="text-align: center;"><?php echo $row5['Province_name'] ?></h2>
+                    </div>
+                </div>
+                <br>
 
-                <h2>ร้านอาหาร ทั้งหมมด</h2>
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ร้านอาหาร ทั้งหมมด</p>
 
-                <?php
+                        <?php
 
-                $strSQL = "SELECT * from foodplace WHERE Province_id = '$Province_id' ";
-                $result = mysqli_query($conn, $strSQL);
+                        $strSQL11 = "SELECT * FROM ethnicdata INNER JOIN foodplace WHERE foodplace.Ethnic_id = ethnicdata.Ethnic_id AND foodplace.Province_id = '$Province_id' GROUP BY ethnicdata.Ethnic_id ";
+                        $result11 = mysqli_query($conn, $strSQL11);
 
-                if (mysqli_num_rows($result) > 0) {
+                        if (mysqli_num_rows($result11) > 0) {
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo "- " . $row['Foodplace_name'] . "<br>";
-                    }
-                } else {
-                    echo " ไม่มี <br>";
-                }
+                            while ($row11 = $result11->fetch_assoc()) {
 
+                                echo "<h2>" . $row11['Ethnic_nameth'] . "</h2>";
 
-                ?>
+                                $Ethnic_id = $row11['Ethnic_id'];
 
-                <h2>ร้านเสื้อผ้า ทั้งหมมด</h2>
+                                $strSQL = "SELECT * FROM foodplace WHERE Province_id = '$Province_id' AND Ethnic_id = '$Ethnic_id' ";
+                                $result = mysqli_query($conn, $strSQL);
 
-                <?php
+                                if (mysqli_num_rows($result) > 0) {
 
-                $strSQL2 = "SELECT * from clothesplace WHERE Province_id = '$Province_id' ";
-                $result2 = mysqli_query($conn, $strSQL2);
+                                    while ($row = $result->fetch_assoc()) {
 
-                if (mysqli_num_rows($result2) > 0) {
-                    while ($row2 = $result2->fetch_assoc()) {
-                        echo "- " . $row2['Clothesplace_name'] . "<br>";
-                    }
-                } else {
-                    echo " ไม่มี <br>";
-                }
+                                        echo "<h4>&nbsp; &nbsp; &nbsp; - &nbsp;" . $row['Foodplace_name'] . "<br></h4> ";
+                                    }
+                                } else {
+                                    echo " ไม่มี <br>";
+                                }
+                            }
+                        } else {
+                            echo " ไม่มี <br>";
+                        }
+                        ?>
 
+                    </div>
+                </div>
+                <br>
 
-                ?>
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ร้านเสื้อผ้า ทั้งหมมด</p>
 
+                        <?php
+
+                        $strSQL11 = "SELECT * FROM ethnicdata INNER JOIN clothesplace WHERE clothesplace.Ethnic_id = ethnicdata.Ethnic_id AND clothesplace.Province_id = '$Province_id' GROUP BY ethnicdata.Ethnic_id ";
+                        $result11 = mysqli_query($conn, $strSQL11);
+
+                        if (mysqli_num_rows($result11) > 0) {
+
+                            while ($row11 = $result11->fetch_assoc()) {
+
+                                echo "<h2>" . $row11['Ethnic_nameth'] . "</h2>";
+
+                                $Ethnic_id = $row11['Ethnic_id'];
+
+                                $strSQL = "SELECT * FROM clothesplace WHERE Province_id = '$Province_id' AND Ethnic_id = '$Ethnic_id' ";
+                                $result = mysqli_query($conn, $strSQL);
+
+                                if (mysqli_num_rows($result) > 0) {
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo "<h4>&nbsp; &nbsp; &nbsp; - &nbsp;" . $row['Clothesplace_name'] . "<br></h4> ";
+                                    }
+                                } else {
+                                    echo " ไม่มี <br>";
+                                }
+                            }
+                        } else {
+                            echo " ไม่มี <br>";
+                        }
+                        ?>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ช่วงเวลา</p>
+                        <h2 style="text-align: center;"><?php echo $_GET['start'] ?>&nbsp;น. &nbsp;ถึง &nbsp;<?php echo $_GET['end'] ?>&nbsp;น.</h2>
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">งบประมาณ</p>
+                        <h2 style="text-align: center;"><?php echo $_GET['costmin'] ?>&nbsp;บาท &nbsp;ถึง &nbsp;<?php echo $_GET['costmax'] ?>&nbsp;บาท</h2>
+                    </div>
+                </div>
+                <br>
 
                 <div id="Typelocation_name"></div>
 
-                <h2>ช่วงเวลา : <?php echo $_GET['start'] ?> ถึง : <?php echo $_GET['end'] ?></h2>
-
-                <h2>งบประมาณ : <?php echo $_GET['costmin'] ?> ถึง : <?php echo $_GET['costmax'] ?></h2>
-
-
-
-                <br>
-                <br>
                 <br>
 
+                <table>
+                    <td><button class="button button1" onclick="goBack()"><< ย้อนกลับ</button></td>
+                    <td style="padding-left: 16rem;"><button class="button button1" >บันทึก >></button></td>
+                </table>
 
-                <button class="button button1" onclick="goBack()">ย้อนกลับ</button>
+
+
                 <script>
                     function goBack() {
                         window.history.back();

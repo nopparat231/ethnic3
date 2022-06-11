@@ -177,7 +177,7 @@ body {background-color: #FFE4B5;}
   ?>
 
 <?php
-session_start();
+
 $c=0;
 if(isset($_POST['submit'])){
 if(!isset($_SESSION["Email"])){

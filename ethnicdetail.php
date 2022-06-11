@@ -162,7 +162,7 @@ body {background-color: #FFE4B5;
     $strSQL = "SELECT * FROM users where Email = '".$_SESSION["Email"]."'";
     $result = mysqli_query($conn, $strSQL);
   $row = $result->fetch_assoc();
-  session_write_close();
+
   ?>
    <ul>
    <li><div class="navbar">

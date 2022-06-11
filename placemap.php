@@ -1,7 +1,5 @@
 <!DOCTYPE HTML>
-<?php // line 1
-ob_start();
-session_start();?>
+
 <?php include("Connect.php");?>
 <html>
   <head>
