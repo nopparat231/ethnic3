@@ -355,6 +355,125 @@
 
                 <div class="card">
                     <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">สถานที่ท่องเที่ยว/พิพิธภัณฑ์ </p>
+
+                        <?php
+
+                        $strSQL11 = "SELECT * FROM ethnicdata INNER JOIN place WHERE place.Ethnic_id = ethnicdata.Ethnic_id AND place.Province_id = '$Province_id' GROUP BY ethnicdata.Ethnic_id ";
+                        $result11 = mysqli_query($conn, $strSQL11);
+
+                        if (mysqli_num_rows($result11) > 0) {
+
+                            while ($row11 = $result11->fetch_assoc()) {
+
+                                echo "<h2>" . $row11['Ethnic_nameth'] . "</h2>";
+
+                                $Ethnic_id = $row11['Ethnic_id'];
+
+                                $strSQL = "SELECT * FROM place WHERE Province_id = '$Province_id' AND Ethnic_id = '$Ethnic_id' ";
+                                $result = mysqli_query($conn, $strSQL);
+
+                                if (mysqli_num_rows($result) > 0) {
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo "<h4>&nbsp; &nbsp; &nbsp; - &nbsp;" . $row['Location_name'] . "<br></h4> ";
+                                    }
+                                } else {
+                                    echo " ไม่มี <br>";
+                                }
+                            }
+                        } else {
+                            echo " ไม่มี <br>";
+                        }
+                        ?>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">แหล่งที่เหลืออยู่ ทั้งหมมด</p>
+
+                        <?php
+
+                        $strSQL11 = "SELECT * FROM ethnicdata INNER JOIN ethnicplace WHERE ethnicplace.Ethnic_id = ethnicdata.Ethnic_id AND ethnicplace.Province_id = '$Province_id' GROUP BY ethnicdata.Ethnic_id ";
+                        $result11 = mysqli_query($conn, $strSQL11);
+
+                        if (mysqli_num_rows($result11) > 0) {
+
+                            while ($row11 = $result11->fetch_assoc()) {
+
+                                echo "<h2>" . $row11['Ethnic_nameth'] . "</h2>";
+
+                                $Ethnic_id = $row11['Ethnic_id'];
+
+                                $strSQL = "SELECT * FROM ethnicplace WHERE Province_id = '$Province_id' AND Ethnic_id = '$Ethnic_id' ";
+                                $result = mysqli_query($conn, $strSQL);
+
+                                if (mysqli_num_rows($result) > 0) {
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo "<h4>&nbsp; &nbsp; &nbsp; - &nbsp;" . $row['Ethnicplace_name'] . "<br></h4> ";
+                                    }
+                                } else {
+                                    echo " ไม่มี <br>";
+                                }
+                            }
+                        } else {
+                            echo " ไม่มี <br>";
+                        }
+                        ?>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="container">
+                        <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ประเพณี ทั้งหมมด</p>
+
+                        <?php
+
+                        $strSQL11 = "SELECT * FROM ethnicdata INNER JOIN custom INNER JOIN customplace WHERE customplace.Custom_id = custom.Custom_id AND custom.Ethnic_id = ethnicdata.Ethnic_id AND customplace.Province_id = '$Province_id' GROUP BY ethnicdata.Ethnic_id ";
+                        $result11 = mysqli_query($conn, $strSQL11);
+
+                        if (mysqli_num_rows($result11) > 0) {
+
+                            while ($row11 = $result11->fetch_assoc()) {
+
+                                echo "<h2>" . $row11['Ethnic_nameth'] . "</h2>";
+
+                                $Ethnic_id = $row11['Ethnic_id'];
+
+                                $strSQL = "SELECT * FROM customplace INNER JOIN custom WHERE customplace.Custom_id = custom.Custom_id AND customplace.Province_id = '$Province_id' AND custom.Ethnic_id = '$Ethnic_id' GROUP BY custom.Ethnic_id  ";
+                                $result = mysqli_query($conn, $strSQL);
+
+                                if (mysqli_num_rows($result) > 0) {
+
+                                    while ($row = $result->fetch_assoc()) {
+
+                                        echo "<h4>&nbsp; &nbsp; &nbsp; - &nbsp;" . $row['Custom_name'] . "<br></h4> ";
+                                    }
+                                } else {
+                                    echo " ไม่มี <br>";
+                                }
+                            }
+                        } else {
+                            echo " ไม่มี <br>";
+                        }
+                        ?>
+
+                    </div>
+                </div>
+                <br>
+
+
+
+                <div class="card">
+                    <div class="container">
                         <p style="text-align: center; font-size: 2.5rem; color:#FFE4B5;margin: 0.5rem;">ช่วงเวลา</p>
                         <h2 style="text-align: center;"><?php echo $_GET['start'] ?>&nbsp;น. &nbsp;ถึง &nbsp;<?php echo $_GET['end'] ?>&nbsp;น.</h2>
                     </div>

@@ -25,19 +25,19 @@ if ($requestMethod == 'GET') {
 
         $Region_id = $_GET['Region_id'];
 
-        $res = $conn->query("SELECT * from Province INNER JOIN place INNER JOIN ethnicdata WHERE ethnicdata.Ethnic_id = place.Ethnic_id AND Province.Province_id = place.Province_id AND Region_id = '$Region_id' ");
+        $res = $conn->query("SELECT * from Province INNER JOIN place INNER JOIN ethnicdata WHERE ethnicdata.Ethnic_id = place.Ethnic_id AND Province.Province_id = place.Province_id AND Region_id = '$Region_id' GROUP BY place.Province_id ");
 
         while ($row = $res->fetch_assoc()) {
 
             $arr[] = $row;
         }
 
-        //สถานที่
+        //สถานที่  ไม่ได้ใช้แล้ว
     } elseif (isset($_GET['Province_id'])) {
 
         $Province_id = $_GET['Province_id'];
 
-        $res = $conn->query("SELECT * from foodplace INNER JOIN clothesplace WHERE clothesplace.Province_id = foodplace.Province_id AND foodplace.Province_id = '$Province_id' ");
+        $res = $conn->query("SELECT * from foodplace INNER JOIN clothesplace WHERE clothesplace.Province_id = foodplace.Province_id AND foodplace.Province_id = '$Province_id'");
 
         while ($row = $res->fetch_assoc()) {
 
