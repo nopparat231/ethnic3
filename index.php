@@ -30,7 +30,7 @@
       clear: both;
     }
 
-    ul {
+    .nav-ul ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
@@ -38,11 +38,11 @@
       background-color: #990000;
     }
 
-    li {
+    .nav-ul li {
       float: right;
     }
 
-    li a {
+    .nav-ul li a {
       display: block;
       color: white;
       font-size: 20px;
@@ -51,7 +51,7 @@
       text-decoration: none;
     }
 
-    li a:hover {
+    .nav-ul li a:hover {
       background-color: #FFA500;
     }
 
@@ -131,6 +131,14 @@
 
     .search {
       float: right;
+
+      margin-top: 10px;
+    }
+
+    .btn-search {
+      width: 3rem;
+      height: 2.6rem;
+      margin-top: 1px;
     }
 
     .navbar {
@@ -193,12 +201,28 @@
     .dropdown:hover .dropdown-content {
       display: block;
     }
+
+    .select2-selection__rendered {
+      line-height: 40px !important;
+    }
+
+    .select2-container .select2-selection--single {
+      height: 40px !important;
+
+    }
+
+    .select2-selection__arrow {
+      height: 40px !important;
+
+    }
   </style>
 
 <body>
 
   </style>
-
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   </head>
 
   <body style="max-width:1600px">
@@ -217,11 +241,13 @@
         //  session_start(); 
         if (!isset($_SESSION["Email"])) {
         ?>
-          <ul>
-            <li><a href="login.php"><img src='login.png' width='30' height='30'>&nbspเข้าสู่ระบบ</a></li>
-            <li><a href="contact.php"><img src='about.png' width='30' height='30'>&nbspเกี่ยวกับเรา</a></li>
-            <li><a class="active" href="index.php"><img src='home_icon.png' width='30' height='30'>&nbspหน้าหลัก</a></li>
-          </ul>
+          <div class="nav-ul">
+            <ul>
+              <li><a href="login.php"><img src='login.png' width='30' height='30'>&nbspเข้าสู่ระบบ</a></li>
+              <li><a href="contact.php"><img src='about.png' width='30' height='30'>&nbspเกี่ยวกับเรา</a></li>
+              <li><a class="active" href="index.php"><img src='home_icon.png' width='30' height='30'>&nbspหน้าหลัก</a></li>
+            </ul>
+          </div>
         <?php
         } else {
           $strSQL = "SELECT * FROM users where Email = '" . $_SESSION["Email"] . "'";
@@ -229,24 +255,26 @@
           $row = $result->fetch_assoc();
           session_write_close();
         ?>
-          <ul>
-            <li>
-              <div class="navbar">
-                <div class="dropdown">
-                  <button class="dropbtn"><?php echo "<img src='profile.png' width='30' height='30'>&nbspสวัสดีคุณ " . $row["Firstname"]; ?><i class="fa fa-caret-down"></i>
-                  </button>
-                  <div class="dropdown-content">
-                    <a href="plan.php"><img src='planicon.png' width='20' height='20'>&nbsp&nbspวางแผนการท่องเที่ยวแบบมีเงื่อนไข</a>
-                    <a href="plan2.php"><img src='planicon.png' width='20' height='20'>&nbsp&nbspวางแผนการท่องเที่ยวแบบจัดลำดับการท่องเที่ยว</a>
-                    <a href="save.php"><img src='yourlike.png' width='30' height='30'>&nbspสถานที่ที่ถูกใจ</a>
-                    <a href="logout.php"><img src='login.png' width='25' height='25'>&nbspออกจากระบบ</a>
+          <div class="nav-ul">
+            <ul>
+              <li>
+                <div class="navbar">
+                  <div class="dropdown">
+                    <button class="dropbtn"><?php echo "<img src='profile.png' width='30' height='30'>&nbspสวัสดีคุณ " . $row["Firstname"]; ?><i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <a href="plan.php"><img src='planicon.png' width='20' height='20'>&nbsp&nbspวางแผนการท่องเที่ยวแบบมีเงื่อนไข</a>
+                      <a href="plan2.php"><img src='planicon.png' width='20' height='20'>&nbsp&nbspวางแผนการท่องเที่ยวแบบจัดลำดับการท่องเที่ยว</a>
+                      <a href="save.php"><img src='yourlike.png' width='30' height='30'>&nbspสถานที่ที่ถูกใจ</a>
+                      <a href="logout.php"><img src='login.png' width='25' height='25'>&nbspออกจากระบบ</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-            <li><a href="contact.php"><img src='about.png' width='30' height='30'>&nbspเกี่ยวกับเรา</a></li>
-            <li><a class="active" href="index.php"><img src='home_icon.png' width='30' height='30'>&nbsp&nbspหน้าหลัก</a></li>
-          </ul>
+              </li>
+              <li><a href="contact.php"><img src='about.png' width='30' height='30'>&nbspเกี่ยวกับเรา</a></li>
+              <li><a class="active" href="index.php"><img src='home_icon.png' width='30' height='30'>&nbsp&nbspหน้าหลัก</a></li>
+            </ul>
+          </div>
         <?php
         }
         ?>
@@ -267,60 +295,75 @@ echo "</select>";
 </form>-->
         <form action="<?= $_SERVER['SCRIPT_NAME']; ?>" method="get">
           <?php
-          $ethnic = $conn->query("SELECT * from ethnicdata");
-          echo '<div class="search"><h3>ค้นหา:&nbsp&nbsp<input type="text" name="search" placeholder="Search..">';
+          $search = $conn->query("SELECT * from ethnicdata INNER JOIN ethnicplace INNER JOIN province WHERE ethnicplace.Ethnic_id = ethnicdata.Ethnic_id AND province.Province_id = ethnicplace.Province_id GROUP BY province.Province_id ");
+          //echo '<div class="search"><h3>ค้นหา:&nbsp&nbsp<input type="text" name="search" placeholder="Search..">';
           ?>
-          <button style='height:32px' type='submit'><i class="search fa fa-search"></i></button></h3>
-    </div>
-    </form>
+          <div class="search">
+            <!-- <h3>ค้นหา:&nbsp&nbsp</h3> -->
+            <select class="js-example-basic-single" name="search">
+              <option></option>
+              <?php
 
-    <?php
+              while ($rowsearch = $search->fetch_assoc()) {
+                $name = $rowsearch['Ethnic_nameth'];
+                $Province_name = $rowsearch['Province_name'];
+                echo '<option value="' . $name . '">' . $name . '</option>';
+                echo '<option value="' . $Province_name . '">' . $Province_name . '</option>';
+              }
 
-    ?>
-    <br>
-    <br>
-    <br>
-    <h1><b>กลุ่มชาติพันธุ์</b></h1>
-    <!-- First Photo Grid-->
+              ?>
+            </select>
+            <button class="search btn-search" type='submit'><i class="fa fa-search"></i></button>
+          </div>
+        </form>
 
-    <?php
-    if (isset($_GET['search'])) {
-      $keyword = ($_GET['search']);
+        <?php
 
-      if ($keyword != "") {
-        echo "<h1><b> ผลการค้นหา : " . $keyword . " </b></h1>";
-      }
+        ?>
+        <br>
+        <br>
+        <br>
+        <h1><b>กลุ่มชาติพันธุ์</b></h1>
+        <!-- First Photo Grid-->
+
+        <?php
+        if (isset($_GET['search'])) {
+          $keyword = ($_GET['search']);
+
+          if ($keyword != "") {
+            echo "<h1><b> ผลการค้นหา : " . $keyword . " </b></h1>";
+          }
 
 
-      if (isset($_GET['page'])) {
-        $pageno = mysqli_real_escape_string($dbConn, $_GET['page']);
-      } else {
-        $pageno = 1;
-      }
-      $no_of_records_per_page = 12;
-      $offset = ($pageno - 1) * $no_of_records_per_page;
+          if (isset($_GET['page'])) {
+            $pageno = mysqli_real_escape_string($dbConn, $_GET['page']);
+          } else {
+            $pageno = 1;
+          }
+          $no_of_records_per_page = 12;
+          $offset = ($pageno - 1) * $no_of_records_per_page;
 
-      $total_pages_sql = "SELECT COUNT(distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id) FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth";
-      $resultc = mysqli_query($conn, $total_pages_sql);
-      $total_rows = mysqli_fetch_array($resultc)[0];
-      $total_pages = ceil($total_rows / $no_of_records_per_page);
+          $total_pages_sql = "SELECT COUNT(distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id) FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth";
+          $resultc = mysqli_query($conn, $total_pages_sql);
+          $total_rows = mysqli_fetch_array($resultc)[0];
+          $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-      $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
-      $q = mysqli_query($conn, $sql);
+          $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
+          $q = mysqli_query($conn, $sql);
 
-      $sql0 = "SELECT distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth LIMIT $offset, $no_of_records_per_page";
-      $q0 = mysqli_query($conn, $sql0);
-      $rowcount = mysqli_num_rows($q0);
-      $c = 1;
+          $sql0 = "SELECT distinct e.Ethnic_nameth,e.Ethnic_nameen,e.img,e.Ethnic_id FROM ethnicdata e left join ethnicplace ep on e.Ethnic_id = ep.Ethnic_id left join province p on p.Province_id = ep.Province_id where e.Ethnic_nameth like '%" . $keyword . "%' or p.Province_name like '%" . $keyword . "%' or e.Ethnic_nameen like '%" . $keyword . "%' order by Ethnic_nameth LIMIT $offset, $no_of_records_per_page";
+          $q0 = mysqli_query($conn, $sql0);
+          $rowcount = mysqli_num_rows($q0);
+          $c = 1;
 
-      if ($rowcount == 0) {
-        echo "<h1><b> ไม่พข้อมูล </b></h1>";
-      }
+          if ($rowcount == 0) {
+            echo "<h1><b> ไม่พข้อมูล </b></h1>";
+          }
 
-      while ($f0 = mysqli_fetch_assoc($q0)) {
-        $img0 = $f0['img'];
+          while ($f0 = mysqli_fetch_assoc($q0)) {
+            $img0 = $f0['img'];
 
-        echo '
+            echo '
           <div class="column"><figure class="snip">
           <img src="images/' . $f0['img'] . '" style="height:300px;width:400px;padding:8px;" style="width:100%">
             <figcaption>
@@ -330,30 +373,30 @@ echo "</select>";
               <a href="ethnicdetail.php?nameimg=' . $img . '"></a>
               </figure>
               </div>';
-      }
-    } else {
+          }
+        } else {
 
 
-      if (isset($_GET['page'])) {
-        $pageno = mysqli_real_escape_string($conn, $_GET['page']);
-      } else {
-        $pageno = 1;
-      }
-      $no_of_records_per_page = 12;
-      $offset = ($pageno - 1) * $no_of_records_per_page;
+          if (isset($_GET['page'])) {
+            $pageno = mysqli_real_escape_string($conn, $_GET['page']);
+          } else {
+            $pageno = 1;
+          }
+          $no_of_records_per_page = 12;
+          $offset = ($pageno - 1) * $no_of_records_per_page;
 
-      $total_pages_sql = "SELECT COUNT(*) FROM ethnicdata";
-      $resultc = mysqli_query($conn, $total_pages_sql);
-      $total_rows = mysqli_fetch_array($resultc)[0];
-      $total_pages = ceil($total_rows / $no_of_records_per_page);
+          $total_pages_sql = "SELECT COUNT(*) FROM ethnicdata";
+          $resultc = mysqli_query($conn, $total_pages_sql);
+          $total_rows = mysqli_fetch_array($resultc)[0];
+          $total_pages = ceil($total_rows / $no_of_records_per_page);
 
-      $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
-      $q = mysqli_query($conn, $sql);
+          $sql = "SELECT * FROM ethnicdata LIMIT $offset, $no_of_records_per_page";
+          $q = mysqli_query($conn, $sql);
 
-      while ($f = mysqli_fetch_assoc($q)) {
-        $img = $f['img'];
+          while ($f = mysqli_fetch_assoc($q)) {
+            $img = $f['img'];
 
-        echo '
+            echo '
       <div class="column"><figure class="snip">
       <img src="images/' . $f['img'] . '" style="height:300px;width:400px;padding:8px;" style="width:100%">
         <figcaption>
@@ -363,52 +406,58 @@ echo "</select>";
           <a href="ethnicdetail.php?nameimg=' . $img . '"></a>
           </figure>
           </div>';
-      }
-    }
-
-    $pa = 1;
-    if (isset($_GET['page'])) {
-      $pa = $_GET['page'];
-    }
-
-    ?>
-
-    <!-- Pagination -->
-    <div class="w3-center w3-padding-32">
-      <div class="w3-bar" style="margin-left: 990px">
-        <a href="index.php?page=<?php echo $pa - 1 ?>" class="w3-bar-item w3-button ">«</a>
-
-        <?php
-
-        $hov = "";
-        for ($p = 1; $p <= $total_pages; $p++) {
-
-          if ($pa == $p) {
-            $hov = "w3-bar-item w3-black w3-button";
-          } else {
-            $hov = "w3-bar-item w3-button w3-hover-black";
           }
-
-        ?>
-
-          <a href="index.php?page=<?php echo $p ?>" class="<?php echo $hov ?>"><?php echo $p ?></a>
-
-        <?php
         }
+
+        $pa = 1;
+        if (isset($_GET['page'])) {
+          $pa = $_GET['page'];
+        }
+
         ?>
 
-        <a href="index.php?page=<?php echo $pa + 1 ?>" class="w3-bar-item w3-button ">»</a>
-      </div>
-    </div>
+        <!-- Pagination -->
+        <div class="w3-center w3-padding-32">
+          <div class="w3-bar" style="margin-left: 990px">
+            <a href="index.php?page=<?php echo $pa - 1 ?>" class="w3-bar-item w3-button ">«</a>
+
+            <?php
+
+            $hov = "";
+            for ($p = 1; $p <= $total_pages; $p++) {
+
+              if ($pa == $p) {
+                $hov = "w3-bar-item w3-black w3-button";
+              } else {
+                $hov = "w3-bar-item w3-button w3-hover-black";
+              }
+
+            ?>
+
+              <a href="index.php?page=<?php echo $p ?>" class="<?php echo $hov ?>"><?php echo $p ?></a>
+
+            <?php
+            }
+            ?>
+
+            <a href="index.php?page=<?php echo $pa + 1 ?>" class="w3-bar-item w3-button ">»</a>
+          </div>
+        </div>
 
 
-    <!-- Footer -->
+        <!-- Footer -->
 
 
-    <!-- End page content -->
+        <!-- End page content -->
     </div>
 
     <script>
+      $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+          tags: true
+        });
+      });
+
       // Script to open and close sidebar
       function w3_open() {
         document.getElementById("mySidebar").style.display = "block";
