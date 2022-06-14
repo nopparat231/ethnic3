@@ -194,7 +194,7 @@
     }
 
     .dropdown-content a:hover {
-      background-color: red;
+      background-color: red !important;
       /*พื้นหลังตอนเอาเม้าไปชี้ ช้อย*/
     }
 
