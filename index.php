@@ -336,7 +336,7 @@ echo "</select>";
 
 
           if (isset($_GET['page'])) {
-            $pageno = mysqli_real_escape_string($dbConn, $_GET['page']);
+            $pageno = mysqli_real_escape_string($conn, $_GET['page']);
           } else {
             $pageno = 1;
           }
@@ -414,12 +414,21 @@ echo "</select>";
           $pa = $_GET['page'];
         }
 
+        if (isset($_GET['search'])) {
+          $search = "&search=" . ($_GET['search']);
+        } else {
+          $search = "";
+        }
+
         ?>
 
         <!-- Pagination -->
         <div class="w3-center w3-padding-32">
           <div class="w3-bar" style="margin-left: 990px">
-            <a href="index.php?page=<?php echo $pa - 1 ?>" class="w3-bar-item w3-button ">«</a>
+
+            <?php if ($pa != 1) { ?>
+              <a href="index.php?page=<?php echo $pa - 1 . $search  ?>" class="w3-bar-item w3-button ">«</a>
+            <?php } ?>
 
             <?php
 
@@ -432,15 +441,20 @@ echo "</select>";
                 $hov = "w3-bar-item w3-button w3-hover-black";
               }
 
+
+
             ?>
 
-              <a href="index.php?page=<?php echo $p ?>" class="<?php echo $hov ?>"><?php echo $p ?></a>
+              <a href="index.php?page=<?php echo $p . $search ?>" class="<?php echo $hov ?>"><?php echo $p ?></a>
 
             <?php
             }
             ?>
 
-            <a href="index.php?page=<?php echo $pa + 1 ?>" class="w3-bar-item w3-button ">»</a>
+            <?php if ($pa != 1) { ?>
+              <a href="index.php?page=<?php echo $pa + 1 . $search ?>" class="w3-bar-item w3-button">»</a>
+            <?php } ?>
+
           </div>
         </div>
 
